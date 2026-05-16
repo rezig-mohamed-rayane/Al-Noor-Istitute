@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معهد النور القرآني | Al-Noor Quranic Institute</title>
+    <meta name="description" content="تعلّم القرآن الكريم بتجويد وإتقان في معهد النور القرآني.">
+    <!-- Google Fonts: Amiri (Arabic serif) & Cairo (UI sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-dark: #0a2e1f;
+            --primary-light: #0d3b2e;
+            --gold-main: #c9a84c;
+            --gold-light: #e8c97a;
+            --cream: #faf6ee;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-gray: #666666;
+            --font-arabic: 'Amiri', serif;
+            --font-ui: 'Cairo', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .arabic-serif {
+            font-family: var(--font-arabic);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img, svg { max-width: 100%; }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .text-center { text-align: center; }
+
+        /* --- PATTERNS --- */
+        .pattern-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 25.98h-30z' fill='%23c9a84c' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- ANIMATIONS --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-family: var(--font-ui);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--gold-main);
+            color: var(--gold-light);
+        }
+
+        .btn-outline:hover {
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--white);
+        }
+
+        /* --- 1. NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 46, 31, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px; height: 45px;
+            fill: var(--gold-main);
+        }
+
+        .logo-text-wrapper { display: flex; flex-direction: column; }
+        
+        .logo-title {
+            color: var(--white);
+            font-family: var(--font-arabic);
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .logo-subtitle {
+            color: var(--gold-light);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 2px;
+            background: var(--gold-main);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-toggle {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--gold-main);
+            color: var(--gold-light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 30px; height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            position: absolute;
+            width: 100%; height: 2px;
+            background: var(--gold-main);
+            transition: var(--transition);
+            left: 0;
+        }
+
+        .mobile-menu-btn span:nth-child(1) { top: 0; }
+        .mobile-menu-btn span:nth-child(2) { top: 9px; }
+        .mobile-menu-btn span:nth-child(3) { top: 18px; }
+
+        .mobile-menu-btn.open span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+        .mobile-menu-btn.open span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.open span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
+        /* --- 2. HERO --- */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-medallion {
+            position: absolute;
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px; height: 600px;
+            opacity: 0.05;
+            animation: rotate-slow 120s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .ayah-container {
+            margin-bottom: 20px;
+        }
+
+        .ayah {
+            color: var(--gold-light);
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .ayah-ref {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            font-family: var(--font-ui);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero-title .highlight { color: var(--gold-main); }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto; margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .stats-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            padding-top: 40px;
+        }
+
+        .stat-box { text-align: center; }
+
+        .stat-num {
+            display: block;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            font-family: var(--font-arabic);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* --- SECTION TITLES --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            color: var(--gold-main);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+
+        .section-title.light { color: var(--white); }
+
+        .divider {
+            height: 3px;
+            width: 80px;
+            background: var(--gold-main);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- 3. ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            padding: 20px;
+        }
+
+        .about-image-border {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            border: 2px dashed var(--gold-main);
+            border-radius: 20px;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .about-image-inner {
+            background: var(--primary-dark);
+            border-radius: 15px;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .mosque-icon {
+            width: 100%;
+            max-width: 250px;
+            fill: var(--gold-light);
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -20px; right: -20px;
+            background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--primary-dark);
+            box-shadow: 0 10px 25px rgba(201, 168, 76, 0.4);
+            z-index: 2;
+        }
+
+        .exp-num { font-size: 2.2rem; font-family: var(--font-arabic); font-weight: bold; line-height: 1; }
+        .exp-text { font-weight: 700; font-size: 1rem; }
+
+        .about-content { padding-right: 20px; }
+        .about-content .section-header { text-align: right; margin-bottom: 30px; }
+        .about-content .divider { margin: 0 0 25px 0; }
+        
+        .about-desc {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .feat-item { display: flex; gap: 15px; }
+        
+        .feat-icon {
+            width: 50px; height: 50px;
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--gold-main);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+        }
+
+        .feat-icon svg { width: 24px; height: 24px; fill: currentColor; }
+        .feat-text h4 { color: var(--primary-dark); font-size: 1.1rem; margin-bottom: 5px; }
+        .feat-text p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- 4. PROGRAMS --- */
+        .programs {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .program-card {
+            background: var(--primary-light);
+            border-radius: 16px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--gold-main);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .program-card.featured {
+            background: linear-gradient(180deg, var(--primary-light) 0%, rgba(201,168,76,0.1) 100%);
+            border-bottom-color: var(--gold-main);
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .program-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+
+        .featured-label {
+            position: absolute;
+            top: 25px; left: -35px;
+            background: var(--gold-main);
+            color: var(--primary-dark);
+            padding: 5px 40px;
+            transform: rotate(-45deg);
+            font-weight: 800;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .prog-icon {
+            width: 70px; height: 70px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 25px;
+            color: var(--gold-light);
+        }
+
+        .prog-icon svg { width: 35px; height: 35px; fill: currentColor; }
+
+        .prog-title {
+            font-size: 1.6rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+        }
+
+        .prog-desc {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            min-height: 70px;
+        }
+
+        .prog-meta {
+            display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            background: rgba(0,0,0,0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ddd;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .prog-btn {
+            display: block; width: 100%; text-align: center;
+            padding: 12px; border: 1px solid rgba(201,168,76,0.4);
+            border-radius: 8px; color: var(--gold-light);
+            transition: var(--transition); font-weight: 600;
+        }
+
+        .program-card:hover .prog-btn {
+            background: var(--gold-main); color: var(--primary-dark);
+        }
+
+        /* --- 5. WHY US --- */
+        .why-us { background: var(--white); }
+        
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .why-card {
+            background: var(--cream);
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px);
+            background: var(--white);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        .why-icon-wrap {
+            width: 80px; height: 80px;
+            background: var(--primary-dark);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto;
+            color: var(--gold-main);
+            transition: var(--transition);
+        }
+
+        .why-card:hover .why-icon-wrap {
+            background: var(--gold-main);
+            color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .why-icon-wrap svg { width: 35px; height: 35px; fill: currentColor; }
+        .why-card h4 { font-size: 1.2rem; color: var(--primary-dark); }
+
+        /* --- 6. TESTIMONIALS --- */
+        .testimonials { background: var(--cream); overflow: hidden; position: relative; }
+        
+        .testimonials::before, .testimonials::after {
+            content: ''; position: absolute; top: 0; width: 150px; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .testimonials::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+        .testimonials::after { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
+
+        .slider-wrap { position: relative; padding: 20px 0; }
+        
+        .slider-track {
+            display: flex; gap: 30px; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimonial-card {
+            min-width: calc(33.333% - 20px);
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(201, 168, 76, 0.1);
+        }
+
+        .stars { color: var(--gold-main); margin-bottom: 20px; display: flex; gap: 3px; }
+        .stars svg { width: 18px; height: 18px; fill: currentColor; }
+
+        .quote {
+            font-family: var(--font-arabic);
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem; color: rgba(201,168,76,0.2);
+            position: absolute; top: -30px; right: -10px;
+            font-family: var(--font-ui);
+        }
+
+        .student-info { display: flex; align-items: center; gap: 15px; border-top: 1px solid #eee; padding-top: 20px; }
+        
+        .avatar {
+            width: 50px; height: 50px;
+            background: var(--primary-light); color: var(--gold-light);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 1.2rem; font-family: var(--font-ui);
+        }
+
+        .student-details h4 { color: var(--primary-dark); font-size: 1.1rem; line-height: 1.2; }
+        .student-details span { color: #888; font-size: 0.85rem; }
+
+        .slider-controls { display: flex; justify-content: center; gap: 12px; margin-top: 40px; position: relative; z-index: 3; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; cursor: pointer; transition: var(--transition); }
+        .dot.active { background: var(--gold-main); transform: scale(1.3); }
+
+        /* --- 7. ENROLLMENT FORM --- */
+        .enroll {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+
+        .enroll-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info-side {
+            padding: 60px 40px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .contact-info-side h3 {
+            font-family: var(--font-arabic);
+            font-size: 2.2rem;
+            color: var(--gold-light);
+            margin-bottom: 40px;
+        }
+
+        .info-row { display: flex; gap: 20px; margin-bottom: 30px; align-items: flex-start; }
+        .info-icon {
+            color: var(--gold-main); background: rgba(201,168,76,0.1);
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        }
+        .info-icon svg { width: 20px; height: 20px; fill: currentColor; }
+        .info-text h5 { font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
+        .info-text p { color: rgba(255,255,255,0.7); font-size: 0.95rem; }
+
+        .social-links { display: flex; gap: 15px; margin-top: 50px; }
+        .social-btn {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); color: var(--gold-light);
+            display: flex; justify-content: center; align-items: center;
+            transition: var(--transition);
+        }
+        .social-btn:hover { background: var(--gold-main); color: var(--primary-dark); transform: translateY(-3px); }
+        .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .form-side { padding: 60px 50px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group.full { grid-column: 1 / -1; }
+        
+        .form-label { display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+        
+        .form-control {
+            width: 100%; padding: 14px 18px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; color: #fff;
+            font-family: var(--font-ui); transition: var(--transition);
+        }
+
+        .form-control:focus { outline: none; border-color: var(--gold-main); background: rgba(0,0,0,0.4); }
+        .form-control::placeholder { color: rgba(255,255,255,0.3); }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c9a84c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: left 15px center;
+        }
+        select.form-control option { background: var(--primary-dark); color: #fff; }
+        textarea.form-control { height: 120px; resize: vertical; }
+
+        .submit-btn { width: 100%; padding: 16px; font-size: 1.1rem; border: none; }
+
+        .success-message {
+            display: none; background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71;
+            color: #2ecc71; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-weight: 600;
+        }
+
+        /* --- 8. FOOTER --- */
+        .footer { background: #05160e; color: #ccc; padding-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+        
+        .footer-brand .basmala {
+            color: var(--gold-main); font-family: var(--font-arabic); font-size: 1.8rem; margin-bottom: 20px;
+        }
+        .footer-desc { margin-bottom: 25px; font-size: 0.95rem; }
+        
+        .footer-col h4 {
+            color: #fff; font-size: 1.2rem; margin-bottom: 25px; position: relative; padding-bottom: 12px;
+        }
+        .footer-col h4::after {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 40px; height: 2px; background: var(--gold-main);
+        }
+
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { transition: var(--transition); display: inline-block; }
+        .footer-links a:hover { color: var(--gold-main); transform: translateX(-5px); }
+
+        .footer-bottom {
+            background: #030d08; padding: 25px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;
+        }
+        .footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #888; }
+
+        /* --- 9. FLOATING WHATSAPP --- */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px;
+            background: #25d366; color: white; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000;
+            transition: var(--transition); animation: pulse-green 2s infinite;
+        }
+        .whatsapp-float svg { width: 35px; height: 35px; fill: currentColor; }
+        .whatsapp-float:hover { transform: scale(1.1); animation: none; }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 1024px) {
+            .programs-grid { grid-template-columns: repeat(2, 1fr); }
+            .program-card.featured { transform: scale(1); }
+            .program-card.featured:hover { transform: translateY(-10px); }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonial-card { min-width: calc(50% - 15px); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials::before, .testimonials::after { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .section { padding: 70px 0; }
+            
+            /* Nav Mobile */
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed; top: 70px; right: -100%; width: 100%; height: calc(100vh - 70px);
+                background: var(--primary-dark); flex-direction: column; justify-content: center;
+                transition: 0.4s ease; padding: 20px;
+            }
+            .nav-links.active { right: 0; }
+            .nav-actions { display: none; }
+            
+            /* Hero Mobile */
+            .hero-title { font-size: 2.8rem; }
+            .ayah { font-size: 2rem; }
+            .stats-wrap { flex-direction: column; gap: 30px; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto 50px auto; }
+            
+            /* Grid down to 1 col */
+            .about-grid, .programs-grid, .why-grid, .enroll-container, .footer-grid { grid-template-columns: 1fr; }
+            .testimonial-card { min-width: 100%; }
+            .form-grid { grid-template-columns: 1fr; }
+            
+            .about-content .section-header { text-align: center; }
+            .about-content .divider { margin: 0 auto 25px auto; }
+            
+            .footer-bottom-inner { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24"><path d="M21 4H7a2 2 0 00-2 2v12a2 2 0 002 2h14a1 1 0 001-1V5a1 1 0 00-1-1zm-1 14H7V6h13v12z"/><path d="M12 8h6v2h-6zM12 12h6v2h-6zM8 8h2v6H8z"/><path d="M3 6v14a2 2 0 002 2h14v-2H5V6H3z"/></svg>
+                <div class="logo-text-wrapper">
+                    <span class="logo-title">معهد النور</span>
+                    <span class="logo-subtitle">Al-Noor Institute</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="active">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#programs">البرامج</a></li>
+                <li><a href="#why-us">لماذا نحن</a></li>
+                <li><a href="#testimonials">آراء الطلاب</a></li>
+                <li><a href="#enroll">تواصل معنا</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="lang-toggle">AR / FR</button>
+                <a href="#enroll" class="btn btn-gold">سجّل الآن</a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileBtn">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 2. HERO -->
+    <section class="hero" id="hero">
+        <div class="pattern-overlay"></div>
+        <svg class="hero-medallion" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="var(--gold-main)" stroke-width="0.5" stroke-dasharray="2,2"/>
+            <path d="M50 5 L55 45 L95 50 L55 55 L50 95 L45 55 L5 50 L45 45 Z" fill="none" stroke="var(--gold-light)" stroke-width="0.5"/>
+            <path d="M50 20 L58 42 L80 50 L58 58 L50 80 L42 58 L20 50 L42 42 Z" fill="none" stroke="var(--gold-main)" stroke-width="0.5"/>
+            <circle cx="50" cy="50" r="15" fill="none" stroke="var(--gold-light)" stroke-width="0.5"/>
+        </svg>
+        
+        <div class="container hero-content fade-in">
+            <div class="ayah-container">
+                <h2 class="ayah">"وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا"</h2>
+                <span class="ayah-ref">[المزمل: 4]</span>
+            </div>
+            
+            <h1 class="hero-title">تعلّم القرآن الكريم <span class="highlight">بتجويد</span> وإتقان</h1>
+            <p class="hero-desc">وجهتك الأولى لتعلم تلاوة وحفظ القرآن الكريم وفق منهجية علمية معتمدة على يد نخبة من المشايخ والمجازين. انضم إلينا اليوم وابدأ رحلتك مع كتاب الله.</p>
+            
+            <div class="hero-buttons">
+                <a href="#enroll" class="btn btn-gold">سجّل الآن</a>
+                <a href="#programs" class="btn btn-outline">اكتشف البرامج</a>
+            </div>
+            
+            <div class="stats-wrap" id="stats">
+                <div class="stat-box">
+                    <span class="stat-num counter" data-target="500">0</span>
+                    <span class="stat-label">طالب وطالبة +</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num counter" data-target="15">0</span>
+                    <span class="stat-label">سنة من العطاء</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num counter" data-target="20">0</span>
+                    <span class="stat-label">معلم ومجاز +</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num counter" data-target="98">0</span>
+                    <span class="stat-label">% نسبة الرضا</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ABOUT -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper fade-in">
+                    <div class="about-image-border"></div>
+                    <div class="about-image-inner">
+                        <svg class="mosque-icon" viewBox="0 0 100 100">
+                            <path d="M50 10 C50 10, 65 30, 65 45 C65 55, 60 60, 50 65 C40 60, 35 55, 35 45 C35 30, 50 10, 50 10 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <rect x="25" y="65" width="50" height="30" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M40 95 L40 75 C40 70, 60 70, 60 75 L60 95" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="50" cy="85" r="2" fill="currentColor"/>
+                            <line x1="50" y1="5" x2="50" y2="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M48 2 A 2 2 0 1 1 52 5 A 4 4 0 0 0 48 2 Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="experience-badge">
+                        <span class="exp-num">+15</span>
+                        <span class="exp-text">سنة</span>
+                    </div>
+                </div>
+                
+                <div class="about-content fade-in">
+                    <div class="section-header">
+                        <span class="section-tag">من نحن</span>
+                        <h2 class="section-title">صرح قرآني رائد</h2>
+                        <div class="divider"></div>
+                    </div>
+                    <p class="about-desc">معهد النور القرآني هو مؤسسة تعليمية رائدة تسعى لنشر علوم القرآن الكريم وتيسير حفظه وتلاوته لجميع الفئات العمرية. نعتمد على أحدث الوسائل التعليمية مع الحفاظ على أصالة التلقي والمشافهة.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feat-item">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                <h4>مشايخ مؤهلون</h4>
+                                <p>نخبة من الأساتذة ذوي الكفاءة العالية.</p>
+                            </div>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                <h4>إجازات معتمدة</h4>
+                                <p>منح إجازات بالسند المتصل للنبي ﷺ.</p>
+                            </div>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                <h4>أوقات مرنة</h4>
+                                <p>جداول تناسب جميع الالتزامات.</p>
+                            </div>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                <h4>تميز وجودة</h4>
+                                <p>متابعة مستمرة لضمان إتقان التلاوة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PROGRAMS -->
+    <section class="section programs" id="programs">
+        <div class="pattern-overlay"></div>
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">مساراتنا التعليمية</span>
+                <h2 class="section-title light">البرامج القرآنية</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="programs-grid">
+                <!-- Card 1 -->
+                <div class="program-card fade-in">
+                    <div class="prog-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 4H7a2 2 0 00-2 2v12a2 2 0 002 2h14a1 1 0 001-1V5a1 1 0 00-1-1zm-1 14H7V6h13v12z"/><path d="M12 8h6v2h-6zM12 12h6v2h-6zM8 8h2v6H8z"/></svg>
+                    </div>
+                    <h3 class="prog-title">تحفيظ القرآن الكريم</h3>
+                    <p class="prog-desc">برنامج متكامل لحفظ القرآن الكريم كاملاً أو أجزاء منه، مع مراجعة دورية وتثبيت للمحفوظ وفق خطة منهجية.</p>
+                    <div class="prog-meta">
+                        <span class="meta-badge">⏱️ 12-36 شهر</span>
+                        <span class="meta-badge">📊 جميع المستويات</span>
+                    </div>
+                    <a href="#enroll" class="prog-btn">التفاصيل والتسجيل</a>
+                </div>
+
+                <!-- Card 2 (Featured) -->
+                <div class="program-card featured fade-in" style="transition-delay: 0.2s;">
+                    <div class="featured-label">الأكثر طلباً</div>
+                    <div class="prog-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    </div>
+                    <h3 class="prog-title">أحكام التجويد والتلاوة</h3>
+                    <p class="prog-desc">دورة عملية ونظرية لإتقان مخارج الحروف والصفات وتطبيق أحكام التجويد للوصول إلى تلاوة صحيحة خالية من اللحن.</p>
+                    <div class="prog-meta">
+                        <span class="meta-badge">⏱️ 6-12 شهر</span>
+                        <span class="meta-badge">📊 مبتدئ / متوسط</span>
+                    </div>
+                    <a href="#enroll" class="prog-btn">التفاصيل والتسجيل</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="program-card fade-in" style="transition-delay: 0.4s;">
+                    <div class="prog-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z"/></svg>
+                    </div>
+                    <h3 class="prog-title">القرآن للأطفال</h3>
+                    <p class="prog-desc">تأسيس الأطفال على القراءة الصحيحة (القاعدة النورانية) وتحفيظهم قصار السور في بيئة تربوية محفزة وممتعة.</p>
+                    <div class="prog-meta">
+                        <span class="meta-badge">⏱️ مستمر</span>
+                        <span class="meta-badge">👶 4-12 سنة</span>
+                    </div>
+                    <a href="#enroll" class="prog-btn">التفاصيل والتسجيل</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. WHY US -->
+    <section class="section why-us" id="why-us">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">ميزاتنا</span>
+                <h2 class="section-title">لماذا تختار معهد النور؟</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="why-grid">
+                <div class="why-card fade-in">
+                    <div class="why-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <h4>مشايخ مؤهلون</h4>
+                </div>
+                <div class="why-card fade-in" style="transition-delay: 0.1s;">
+                    <div class="why-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zm-10-7h9v6h-9z"/></svg>
+                    </div>
+                    <h4>عن بُعد وحضورياً</h4>
+                </div>
+                <div class="why-card fade-in" style="transition-delay: 0.2s;">
+                    <div class="why-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <h4>مجموعات صغيرة</h4>
+                </div>
+                <div class="why-card fade-in" style="transition-delay: 0.3s;">
+                    <div class="why-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    </div>
+                    <h4>شهادات وإجازات</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. TESTIMONIALS -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">تجارب النجاح</span>
+                <h2 class="section-title">آراء طلابنا</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="slider-wrap fade-in" id="sliderWrap">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="quote">بفضل الله ثم بجهود المشايخ في المعهد، تمكنت من إتقان أحكام التجويد في فترة وجيزة. الاهتمام والمتابعة هنا استثنائية.</p>
+                        <div class="student-info">
+                            <div class="avatar">أ.ع</div>
+                            <div class="student-details">
+                                <h4>أحمد عبدالله</h4>
+                                <span>الرياض</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="quote">ألحقت أبنائي ببرنامج القاعدة النورانية، والنتيجة كانت مبهرة. أصبحوا يقرؤون القرآن بسلاسة ونطق صحيح. جزاكم الله خيراً.</p>
+                        <div class="student-info">
+                            <div class="avatar">ف.م</div>
+                            <div class="student-details">
+                                <h4>فاطمة محمد</h4>
+                                <span>جدة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="quote">بيئة تعليمية راقية ومرونة في الأوقات ساعدتني كثيراً للتوفيق بين عملي وحفظ كتاب الله. أنصح الجميع بالانضمام.</p>
+                        <div class="student-info">
+                            <div class="avatar">ع.س</div>
+                            <div class="student-details">
+                                <h4>عمر سعيد</h4>
+                                <span>الدمام</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="quote">حصلت على إجازتي الأولى من المعهد. الدقة في التلقين والصبر من المشايخ كان لهما الأثر الأكبر في مسيرتي القرآنية.</p>
+                        <div class="student-info">
+                            <div class="avatar">س.خ</div>
+                            <div class="student-details">
+                                <h4>سارة خالد</h4>
+                                <span>مكة المكرمة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-controls" id="sliderDots">
+                <!-- Dots generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. ENROLLMENT FORM -->
+    <section class="section enroll" id="enroll">
+        <div class="pattern-overlay"></div>
+        <div class="container">
+            <div class="enroll-container fade-in">
+                <!-- Contact Info Side -->
+                <div class="contact-info-side">
+                    <h3>يسعدنا تواصلكم</h3>
+                    
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h5>العنوان</h5>
+                            <p>المملكة العربية السعودية، الرياض، حي الياسمين</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h5>الهاتف / واتساب</h5>
+                            <p dir="ltr">+966 50 123 4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h5>البريد الإلكتروني</h5>
+                            <p>info@alnoor-quran.edu</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-btn"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
+                        <a href="#" class="social-btn"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="#" class="social-btn"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                        <a href="#" class="social-btn"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="form-side">
+                    <form id="enrollmentForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">الاسم الثلاثي *</label>
+                                <input type="text" id="name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">رقم الجوال / واتساب *</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="05x xxx xxxx" required>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">البريد الإلكتروني (اختياري)</label>
+                                <input type="email" id="email" class="form-control" placeholder="example@mail.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">البرنامج المطلوب *</label>
+                                <select id="program" class="form-control" required>
+                                    <option value="" disabled selected>اختر البرنامج</option>
+                                    <option value="memorization">تحفيظ القرآن الكريم</option>
+                                    <option value="tajweed">أحكام التجويد والتلاوة</option>
+                                    <option value="kids">القرآن للأطفال</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">نظام التعلم *</label>
+                                <select id="mode" class="form-control" required>
+                                    <option value="" disabled selected>اختر نظام التعلم</option>
+                                    <option value="online">عن بُعد (أونلاين)</option>
+                                    <option value="onsite">حضوري في المعهد</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">ملاحظات أو استفسار (اختياري)</label>
+                                <textarea id="message" class="form-control" placeholder="اكتب رسالتك هنا..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-gold submit-btn">إرسال طلب التسجيل</button>
+                        
+                        <div class="success-message" id="successMsg">
+                            تم إرسال طلبك بنجاح! سنتواصل معك قريباً.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+                    <p class="footer-desc">معهد النور القرآني، وجهتكم الأولى لإتقان تلاوة وحفظ كتاب الله. نسعى لبناء جيل قرآني يتخلق بأخلاق القرآن.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">الرئيسية</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#why-us">ميزات المعهد</a></li>
+                        <li><a href="#testimonials">آراء الطلاب</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>البرامج</h4>
+                    <ul class="footer-links">
+                        <li><a href="#programs">تحفيظ القرآن</a></li>
+                        <li><a href="#programs">أحكام التجويد</a></li>
+                        <li><a href="#programs">القرآن للأطفال</a></li>
+                        <li><a href="#programs">الإجازات والسند</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <ul class="footer-links">
+                        <li>الرياض، حي الياسمين</li>
+                        <li>+966 50 123 4567</li>
+                        <li>info@alnoor-quran.edu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <div>جميع الحقوق محفوظة &copy; 2026 معهد النور القرآني.</div>
+                <div>تعلّم القرآن الكريم بتجويد وإتقان</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 9. FLOATING WHATSAPP -->
+    <a href="https://wa.me/966501234567" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- --- JAVASCRIPT --- -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobileBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileBtn.classList.toggle('open');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBtn.classList.remove('open');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 2. Navbar Scroll Effect & Scrollspy
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            // Navbar Background
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Scrollspy
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 3. Scroll Reveal Animations (IntersectionObserver)
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(el => appearOnScroll.observe(el));
+
+        // 4. Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+
+        const countObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasCounted) {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                });
+                hasCounted = true;
+            }
+        }, { threshold: 0.5 });
+
+        const statsSection = document.getElementById('stats');
+        if(statsSection) countObserver.observe(statsSection);
+
+        // 5. Testimonials Slider
+        const track = document.getElementById('sliderTrack');
+        const cards = document.querySelectorAll('.testimonial-card');
+        const dotsContainer = document.getElementById('sliderDots');
+        
+        // Calculate variables based on screen size
+        let cardsPerView = window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1);
+        let totalSlides = cards.length - cardsPerView + 1;
+        if(totalSlides < 1) totalSlides = 1;
+        let currentIndex = 0;
+        let slideInterval;
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlider() {
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 30; // gap from CSS
+            const moveAmount = (cardWidth + gap) * currentIndex;
+            // Since it's RTL, we transform positive to move track to the right (revealing left items)
+            track.style.transform = `translateX(${moveAmount}px)`;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            if(dots[currentIndex]) dots[currentIndex].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+            resetInterval();
+        }
+
+        function nextSlide() {
+            currentIndex++;
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0;
+            }
+            updateSlider();
+        }
+
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 4500);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        // Pause on hover
+        const sliderWrap = document.getElementById('sliderWrap');
+        sliderWrap.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        sliderWrap.addEventListener('mouseleave', startInterval);
+
+        // Recalculate on resize
+        window.addEventListener('resize', () => {
+            let newCardsPerView = window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1);
+            if(newCardsPerView !== cardsPerView) {
+                cardsPerView = newCardsPerView;
+                totalSlides = cards.length - cardsPerView + 1;
+                if(totalSlides < 1) totalSlides = 1;
+                
+                // Rebuild dots
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+                
+                if(currentIndex >= totalSlides) currentIndex = totalSlides - 1;
+                updateSlider();
+            } else {
+                updateSlider(); // Just update position
+            }
+        });
+
+        startInterval();
+
+        // 6. Form Validation & Submission
+        const form = document.getElementById('enrollmentForm');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Basic validation is handled by HTML5 'required' attribute
+            // Show success message
+            successMsg.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+            
+            // Reset form
+            form.reset();
+        });
+
+    </script>
+</body>
+</html>
