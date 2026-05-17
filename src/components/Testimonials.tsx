@@ -34,7 +34,7 @@ const Testimonials = () => {
     // RTL: positive transform to go left
     // LTR: negative transform to go left
     const dirMultiplier = language === 'ar' ? 1 : -1;
-    const transformValue = `translateX(${currentIndex * (100 / cardsPerView) * dirMultiplier}%)`;
+    const transformValue = `translateX(calc(${currentIndex * dirMultiplier} * (100% + 30px) / ${cardsPerView}))`;
 
     return (
         <section className="section testimonials" id="testimonials">
@@ -60,7 +60,14 @@ const Testimonials = () => {
                 >
                     <div className="slider-track" style={{ transform: transformValue }}>
                         {testimonials.map((tItem, idx) => (
-                            <div className="testimonial-card" key={idx} style={{ minWidth: `calc(${100 / cardsPerView}% - ${30 * (cardsPerView-1)/cardsPerView}px)` }}>
+                            <div 
+                                className="testimonial-card" 
+                                key={idx} 
+                                style={{ 
+                                    minWidth: `calc(${100 / cardsPerView}% - ${30 * (cardsPerView - 1) / cardsPerView}px)`,
+                                    flex: `0 0 calc(${100 / cardsPerView}% - ${30 * (cardsPerView - 1) / cardsPerView}px)`
+                                }}
+                            >
                                 <div className="stars">
                                     {[...Array(5)].map((_, i) => (
                                         <svg key={i} viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>

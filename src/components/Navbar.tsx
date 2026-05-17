@@ -65,13 +65,18 @@ const Navbar = () => {
                     <a href="#enroll" className="btn btn-gold">{t('nav.enroll')}</a>
                 </div>
 
-                <button
-                    className={`mobile-menu-btn ${isMenuOpen ? 'open' : ''}`}
-                    id="mobileBtn"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    <span></span><span></span><span></span>
-                </button>
+                <div className="nav-mobile-controls">
+                    <button className="lang-toggle lang-toggle-mobile" onClick={toggleLanguage}>
+                        {language === 'ar' ? 'EN' : language === 'en' ? 'FR' : 'AR'}
+                    </button>
+                    <button
+                        className={`mobile-menu-btn ${isMenuOpen ? 'open' : ''}`}
+                        id="mobileBtn"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
             </div>
         </nav>
     );
